@@ -1,0 +1,25 @@
+{
+  "name": "kidsec-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bashamahmoud/kidsec-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bashamahmoud/kidsec-backend/issues"
+  },
+  "homepage": "https://github.com/bashamahmoud/kidsec-backend#readme",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "express": "^4.18.2",
+    "joi": "^17.7.0",
+    "mongoose": "^6.7.1"
+  }
+}
