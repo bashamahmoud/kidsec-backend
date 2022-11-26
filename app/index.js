@@ -2,6 +2,7 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const users_parent = require('./../routes/users_parent');
+const users_child = require('./../routes/users_child');
 const express = require('express');
 const app = express();
 mongoose.connect('mongodb+srv://mahmoud2000:basha1214@cluster0.bcrvo87.mongodb.net/kidsec?retryWrites=true&w=majority')
@@ -9,6 +10,7 @@ mongoose.connect('mongodb+srv://mahmoud2000:basha1214@cluster0.bcrvo87.mongodb.n
     .catch(err => console.error('Something went wrong', err));
 app.use(express.json());
 app.use('/api/users_parent', users_parent);
+app.use('/api/users_child', users_child);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
