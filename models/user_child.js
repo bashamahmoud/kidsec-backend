@@ -22,7 +22,7 @@ const User_child = mongoose.model(
       required: true,
       minlength: 5,
       maxlength: 255,
-      unique: true,
+      unique: false,
     },
     password: {
       type: String,
