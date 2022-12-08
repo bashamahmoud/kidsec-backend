@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User_child } = require("./../models/user_child");
@@ -23,9 +24,8 @@ router.post("/", async (req, res) => {
   if (!validPassword) {
     return res.status(400).send("Incorrect email or password.");
   }
-
-  res.send(true);
-});
+  const token = jwt.sign({ _id: user_child._id }, process.env.PrivateKey);
+  res.header('x-auth-token', token).send(_.pick(user_child, ['_id', 'name','parent_email', 'email']));});
 function validate(req) {
   const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
