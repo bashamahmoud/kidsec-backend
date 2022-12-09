@@ -1,8 +1,6 @@
 const Joi = require("joi");
-const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
-const _ = require("lodash");
-const { User_parent } = require("./../models/user_parent");
+const { User } = require("../models/user");
 const express = require("express");
 const router = express.Router();
 
@@ -12,27 +10,25 @@ router.post("/", async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  let user_parent = await User_parent.findOne({ email: req.body.email });
-  if (!user_parent) {
+  let user = await User.findOne({ email: req.body.email });
+  if (!user) {
     return res.status(400).send("Incorrect email or password.");
   }
-
   const validPassword = await bcrypt.compare(
     req.body.password,
-    user_parent.password
+    user.password
   );
   if (!validPassword) {
     return res.status(400).send("Incorrect email or password.");
   }
-  const token = jwt.sign({ _id: user_parent._id }, process.env.PrivateKey);
-  res.header('x-auth-token', token).send(_.pick(user_parent, ['_id', 'name', 'email']));});
-function validate(req) {
+  res.send(true);
+  function validate(req) {
   const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(255).required(),
   });
   const validation = schema.validate(req);
   return validation;
-}
-
+}});
 module.exports = router;
+
