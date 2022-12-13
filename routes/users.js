@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
     return res.status(400).send("That user already exisits!");
   }else if(req.body.tag ==="child"){
   let tmpuser = await User.findOne({ email: req.body.parent_email });
-  console.log(tmpuser.email);
   user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -24,8 +23,7 @@ router.post("/", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    tmpuser.children.push(user.email);
-    console.log(tmpuser.children);
+    tmpuser.children.push(user._id);
     await tmpuser.save();
     res.send(user);
  }

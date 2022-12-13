@@ -4,6 +4,8 @@ require('dotenv').config()
 const mongoose = require("mongoose");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const name = require("./routes/name");
+const children= require("./routes/children");
 const express = require("express");
 const app = express();
 mongoose
@@ -19,6 +21,9 @@ app.use(express.json()); // to enable express from understanding json
 
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use("/api/names", name);
+app.use("/api/children", children);
 
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
