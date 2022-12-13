@@ -3,7 +3,7 @@ const { User} = require("../models/user");
 const router = express.Router();
 
 
-router.get('/', async (req, res)=> {
+router.post('/', async (req, res)=> {
 let Name= await User.findOne({email: req.body.email});
 if (!Name) {
     return res.status(400).send("Incorrect email");

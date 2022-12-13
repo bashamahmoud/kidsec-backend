@@ -2,7 +2,7 @@ const express = require("express");
 const { User} = require("../models/user");
 const router = express.Router();
 var tmpuser = new Array();
-router.get('/', async (req, res)=> {
+router.post('/', async (req, res)=> {
     console.log("hi");
 let user = await User.findOne({email: req.body.email});
 if (!user) {
