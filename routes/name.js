@@ -11,7 +11,7 @@ router.post("/", async(req, res) => {
     } else {
         res.send(
             EJSON.toJSONValue(
-                '{["email": ' +
+                '{"email": ' +
                 '"' +
                 Name.email +
                 '"' +
@@ -23,7 +23,7 @@ router.post("/", async(req, res) => {
                 '"' +
                 Name.id +
                 '"' +
-                "]}"
+                "}"
             )
         );
     }
