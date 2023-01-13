@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/:fetch", async(req, res) => {
     let Name = await User.findOne({
         $or: [{ email: req.params.fetch }, { name: req.params.fetch }],
-    }, { email: 1, name: 1, id: 1 });
+    }, { id: 1 });
     if (!Name) {
         return res.status(400).send("Incorrect email");
     } else {
@@ -20,7 +20,7 @@ router.get("/byID/:id", async(req, res) => {
     }
     let Name = await User.findOne({
         $or: [{ _id: mongodb.ObjectId(req.params.id) }],
-    }, { email: 1, name: 1, id: 1 });
+    }, { email: 1, name: 1 });
     if (!Name) {
         return res.status(400).send("Incorrect email");
     } else {
