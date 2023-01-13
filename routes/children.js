@@ -1,11 +1,12 @@
 const express = require("express");
 const { User } = require("../models/user");
+const mongodb = require("mongodb");
 const router = express.Router();
 var tmpuser = new Array();
 router.get("/list/:id", async(req, res) => {
-    let user = await User.findOne({ id: req.params.id });
+    let user = await User.findOne({ _id: mongodb.ObjectId(req.params.id) });
     if (!user) {
-        return res.status(400).send("Incorrect email");
+        return res.status(400).send("ID not found");
     } else {
         const userIds = user.children; // array of user _ids
 
