@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
@@ -43,7 +44,7 @@ const User = mongoose.model(
     },
     tasks: [
       {
-        _id: { type: Number, required: false },
+        _id: { type: Number,unique:true, required: false },
         description: { type: String, required: false } 
       }
     ]
