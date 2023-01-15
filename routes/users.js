@@ -11,23 +11,8 @@ router.post("/", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) {
     return res.status(400).send("That user already exisits!");
-  }else if(req.body.tag ==="child"){
-  let tmpuser = await User.findOne({ email: req.body.parent_email });
-  user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    parent_email: req.body.parent_email,
-    password: req.body.password,
-    tag: req.body.tag,
-    children: req.body.children,});
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
-    tmpuser.children.push(user._id);
-    await tmpuser.save();
-    res.send(user);
- }
-  else {
+  } else if (req.body.tag === "child") {
+    let tmpuser = await User.findOne({ email: req.body.parent_email });
     user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -35,12 +20,26 @@ router.post("/", async (req, res) => {
       password: req.body.password,
       tag: req.body.tag,
       children: req.body.children,
-  });
+    });
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
+    tmpuser.children.push(user._id);
+    await tmpuser.save();
+    res.send(user);
+  } else {
+    user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      parent_email: req.body.parent_email,
+      password: req.body.password,
+      tag: req.body.tag,
+      children: req.body.children,
+    });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
     res.send(user);
-
   }
 });
 
