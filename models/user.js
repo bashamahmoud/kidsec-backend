@@ -41,6 +41,13 @@ const User = mongoose.model(
       minlength: 0,
       maxlength: 1024,
     },
+    tasks: [
+      {
+        _id: { type: Number, required: false },
+        description: { type: String, required: false } 
+      }
+    ]
+
   })
 );
 
@@ -52,6 +59,10 @@ function validateUser(user) {
     password: Joi.string().min(5).required(),
     tag: Joi.string().required(),
     children: Joi.array().items(Joi.string()),
+    tasks: Joi.array().items(Joi.object().keys({
+      _id: Joi.number(),
+      description: Joi.string()
+    })),
   });
 
   const validation = schema.validate(user);
