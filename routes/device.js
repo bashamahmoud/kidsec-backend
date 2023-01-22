@@ -8,7 +8,7 @@ router.get("/fetch_Name/:id", async(req, res) => {
     if (!user) {
         return res.status(400).send("ID not found");
     } else {
-      res.send(user.deviceName);
+        res.send(user.deviceName);
     }
 });
 router.get("/fetch_Token/:id", async(req, res) => {
@@ -16,10 +16,10 @@ router.get("/fetch_Token/:id", async(req, res) => {
     if (!user) {
         return res.status(400).send("ID not found");
     } else {
-      res.send(user.deviceToken);
+        res.send(user.deviceToken);
     }
 });
-router.post("/devicename/:id", async(req, res) => {
+router.post("/addDevice/:id", async(req, res) => {
     let user = await User.findOne({ _id: mongodb.ObjectId(req.params.id) });
     if (!user) {
         return res.status(400).send("ID not found");
@@ -29,17 +29,16 @@ router.post("/devicename/:id", async(req, res) => {
         res.send(user);
     }
 });
-router.post("/devicetoken/:id", async(req, res) => {
+router.post("/addToken/:id", async(req, res) => {
     let user = await User.findOne({ _id: mongodb.ObjectId(req.params.id) });
     if (!user) {
         return res.status(400).send("ID not found");
     } else {
         user.deviceToken = req.body.deviceToken;
         await user.save();
-     
+
         res.send(user);
     }
 });
-
 
 module.exports = router;
