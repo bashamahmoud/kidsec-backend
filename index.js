@@ -7,6 +7,7 @@ const auth = require("./routes/auth");
 const name = require("./routes/name");
 const children= require("./routes/children");
 const tasks= require("./routes/task");
+const device = require("./routes/device");
 const express = require("express");
 const app = express();
 mongoose
@@ -25,6 +26,8 @@ app.use("/api/auth", auth);
 app.use("/api/names", name);
 app.use("/api/children", children);
 app.use("/api/tasks", tasks);
+app.use("/api/device", device);
+
 
 
 const port = process.env.PORT || 4000;

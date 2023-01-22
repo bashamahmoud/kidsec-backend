@@ -42,6 +42,18 @@ const User = mongoose.model(
       minlength: 0,
       maxlength: 1024,
     },
+    deviceName: {
+      type: String,
+      required: false,
+      minlength: 0,
+      maxlength: 1000,
+    },
+    deviceToken: {
+      type: String,
+      required: false,
+      minlength: 0,
+      maxlength: 1000,
+    },
     tasks: [
       {
         _id: { type: Number,unique:true, required: false },
@@ -60,6 +72,8 @@ function validateUser(user) {
     password: Joi.string().min(5).required(),
     tag: Joi.string().required(),
     children: Joi.array().items(Joi.string()),
+    deviceName: Joi.string().min(0),
+    deviceToken: Joi.string().min(0),
     tasks: Joi.array().items(Joi.object().keys({
       _id: Joi.number(),
       description: Joi.string()
